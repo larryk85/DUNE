@@ -12,12 +12,12 @@ RUN npm install -D webpack-dev-server
 WORKDIR /app
 
 # get Mandel
-RUN wget https://github.com/larryk85/ENF-Binaries/releases/download/v1.0/mandel_3.0.5_amd64.deb
-RUN apt install ./mandel_3.0.5_amd64.deb
+RUN wget https://github.com/larryk85/ENF-Binaries/releases/download/v1.0/mandel_3.0.5_arm64.deb
+RUN apt install ./mandel_3.0.5_arm64.deb
 
 # get CDT
-RUN wget https://github.com/larryk85/ENF-Binaries/releases/download/v1.0/cdt_1.8.1_amd64.deb
-RUN apt install ./cdt_1.8.1_amd64.deb
+RUN wget https://github.com/larryk85/ENF-Binaries/releases/download/v1.0/cdt_1.8.1_arm64.deb
+RUN apt install ./cdt_1.8.1_arm64.deb
 
 # get Contracts
 RUN git clone https://github.com/eosnetworkfoundation/mandel-contracts 
