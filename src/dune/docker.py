@@ -1,4 +1,4 @@
-import subprocess, platform, os
+import subprocess, platform, os, getpass
 
 class docker:
    _container = ""
@@ -29,6 +29,8 @@ class docker:
       abs_path = os.path.abspath(dir)
       if platform.system() == 'Windows':
          abs_path = abs_path[3:].replace('\\', '/') # remove the drive letter prefix and replace the separators
+      else:
+         abs_path = abs_path[1:]
 
       return '/host/'+abs_path
  
@@ -95,8 +97,17 @@ class docker:
       self.execute_docker_cmd(['container', 'stop', self._container])
       self.execute_docker_cmd(['container', 'rm', self._container])
 
+   def execute_cmd_at(self, dir, cmd):
+      proc = subprocess.Popen(['docker', 'container', 'exec', '-w', dir, self._container]+cmd)
+      proc.communicate()
+
    def execute_cmd(self, cmd):
       return self.execute_docker_cmd(['container', 'exec', self._container] + cmd)
+
+   def execute_interactive_cmd(self, cmd):
+      proc = subprocess.Popen(['docker', 'container', 'exec', '-i', self._container]+cmd)
+      proc.communicate()
+      #return self.execute_docker_cmd(['container', 'exec', '-i', self._container] + cmd)
 
    def execute_cmd2(self, cmd):
       proc = subprocess.Popen(['docker', 'container', 'exec', self._container] + cmd)
